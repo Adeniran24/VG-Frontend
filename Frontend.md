@@ -135,7 +135,11 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
     setError('');
     try {
       const data = await entityApi.getAll();
-      setItems(Array.isArray(data) ? data : []);
+      setItems(
+        Array.isArray(data)
+          ? data.map((item) => ({ ...item, id: Number(item.id) })) // egyszer normalizáljuk számmá az ID-t
+          : []
+      );
     } catch (err) {
       setError(err?.response?.data?.message || 'Betöltési hiba.');
     } finally {
@@ -151,7 +155,7 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
     if (!window.confirm('Biztosan törlöd?')) return;
     try {
       await entityApi.remove(id);
-      setItems((prev) => prev.filter((item) => Number(item.id) !== Number(id))); // tartsd egységesen számos típusban az ID-ket
+      setItems((prev) => prev.filter((item) => item.id !== Number(id)));
     } catch (err) {
       setError(err?.response?.data?.message || 'Törlési hiba.');
     }
@@ -167,7 +171,7 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
 
       <div className="row g-3">
         {items.map((item) => (
-          <div className="col-12 col-md-6 col-lg-4" key={item.id}> {/* backend oldalon legyen minden id egyedi */}
+          <div className="col-12 col-md-6 col-lg-4" key={item.id}>
             <div className="card h-100">
               <div className="card-body">
                 <h2 className="h5">{item.name}</h2> {/* ÁTÍRANDÓ: mezőnév */}
@@ -189,6 +193,8 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
   );
 }
 ```
+
+**Fontos:** a `key={item.id}` miatt a backendből érkező `id` mező legyen minden elemnél egyedi.
 
 ---
 
@@ -335,7 +341,7 @@ export function EntityUpdatePage() { // ÁTÍRANDÓ
     setIsSubmitting(true);
     setError('');
     try {
-      await entityApi.update(id, mapFormToPayload(form, id)); // az URL-hez is kell az id, és néhány backend a body-ban is elvárja
+      await entityApi.update(id, mapFormToPayload(form, id)); // ha backend csak URL id-t vár, akkor mapFormToPayload(form) is elég lehet
       navigate(`/entity/${id}`); // ÁTÍRANDÓ
     } catch (err) {
       setError(err?.response?.data?.message || 'Módosítási hiba.');

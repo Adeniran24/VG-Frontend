@@ -153,9 +153,10 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
 
   const handleDelete = async (id) => {
     if (!window.confirm('Biztosan törlöd?')) return;
+    const targetId = Number(id);
     try {
       await entityApi.remove(id);
-      setItems((prev) => prev.filter((item) => item.id !== Number(id)));
+      setItems((prev) => prev.filter((item) => item.id !== targetId));
     } catch (err) {
       setError(err?.response?.data?.message || 'Törlési hiba.');
     }
@@ -341,7 +342,7 @@ export function EntityUpdatePage() { // ÁTÍRANDÓ
     setIsSubmitting(true);
     setError('');
     try {
-      await entityApi.update(id, mapFormToPayload(form, id)); // ha backend csak URL id-t vár, akkor mapFormToPayload(form) is elég lehet
+      await entityApi.update(id, mapFormToPayload(form, id)); // ha backend body-ban NEM vár id-t, hívd így: mapFormToPayload(form)
       navigate(`/entity/${id}`); // ÁTÍRANDÓ
     } catch (err) {
       setError(err?.response?.data?.message || 'Módosítási hiba.');
@@ -381,7 +382,7 @@ export const initialEntityFormState = {
 };
 
 export const mapFormToPayload = (form, id = null) => ({
-  id: id == null || id === '' ? 0 : Number(id),
+  ...(id == null || id === '' ? {} : { id: Number(id) }), // csak akkor tesszük bele az id-t, ha megadod
   name: form.name.trim(), // ÁTÍRANDÓ
   year: Number(form.year), // ÁTÍRANDÓ
 });

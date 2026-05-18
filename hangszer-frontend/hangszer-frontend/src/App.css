@@ -1,0 +1,42 @@
+.app-shell {
+  min-height: 100vh;
+  background-color: #f4f6f8;
+}
+
+.navbar .nav-link.active {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.instrument-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.instrument-title-link:hover {
+  color: inherit;
+}
+
+.instrument-card {
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.instrument-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.instrument-image {
+  height: 170px;
+  object-fit: contain;
+}
+
+.detail-image {
+  max-height: 340px;
+  object-fit: contain;
+}
+
+.back-icon {
+  font-size: 1.5rem;
+}

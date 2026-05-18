@@ -1,0 +1,120 @@
+body {
+  background-color: #ececec;
+}
+
+.navbar .nav-link.active {
+  font-weight: 600;
+}
+
+.konyv-page {
+  padding-top: 16px;
+}
+
+.konyv-page-title {
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.konyv-card {
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background: #f1f1f1;
+  padding: 12px;
+  text-align: center;
+}
+
+.konyv-card-name {
+  color: #6f6f6f;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.konyv-card-name span {
+  color: #253b56;
+}
+
+.konyv-card-year {
+  font-size: 34px;
+  font-weight: 700;
+  color: #16273b;
+  margin-bottom: 2px;
+}
+
+.konyv-card-rating {
+  color: #4d4d4d;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.konyv-card-image-link {
+  display: inline-block;
+}
+
+.konyv-card-image {
+  width: 100%;
+  max-width: 210px;
+  height: 180px;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid #c9c9c9;
+}
+
+.konyv-card-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.konyv-icon-button {
+  border: 0;
+  background: transparent;
+  color: #0d6efd;
+  font-size: 14px;
+  padding: 0;
+  line-height: 1;
+}
+
+@media (max-width: 991.98px) {
+  .konyv-page-title {
+    font-size: 40px;
+  }
+
+  .konyv-card-name {
+    font-size: 18px;
+  }
+
+  .konyv-card-year {
+    font-size: 28px;
+  }
+
+  .konyv-card-rating {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .konyv-card {
+    padding: 10px;
+  }
+
+  .konyv-card-name {
+    font-size: 16px;
+  }
+
+  .konyv-card-year {
+    font-size: 24px;
+  }
+
+  .konyv-card-rating {
+    font-size: 13px;
+  }
+
+  .konyv-card-image {
+    height: 240px;
+  }
+}

@@ -1,0 +1,15 @@
+.app-shell {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 55%, #fdfdff 100%);
+}
+
+.ship-card {
+  cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.ship-card:hover,
+.ship-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 0.8rem 1.6rem rgba(13, 110, 253, 0.15) !important;
+}

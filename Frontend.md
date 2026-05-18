@@ -123,7 +123,7 @@ export async function deleteEntity(id) {
 ```jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { entityApi } from '../services/entityApi'; // ÁTÍRANDÓ: útvonal + API név
+import { entityApi } from '../services/entityApi'; // ÁTÍRANDÓ: fájl útvonala + importált objektum neve (pl. konyvApi)
 
 export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
   const [items, setItems] = useState([]);
@@ -151,7 +151,7 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
     if (!window.confirm('Biztosan törlöd?')) return;
     try {
       await entityApi.remove(id);
-      setItems((prev) => prev.filter((item) => String(item.id) !== String(id)));
+      setItems((prev) => prev.filter((item) => Number(item.id) !== Number(id))); // ha nálad string az ID, maradhat String(...) összehasonlítás
     } catch (err) {
       setError(err?.response?.data?.message || 'Törlési hiba.');
     }
@@ -335,7 +335,7 @@ export function EntityUpdatePage() { // ÁTÍRANDÓ
     setIsSubmitting(true);
     setError('');
     try {
-      await entityApi.update(id, mapFormToPayload(form, id));
+      await entityApi.update(id, mapFormToPayload(form, id)); // az URL-hez is kell az id, és néhány backend a body-ban is elvárja
       navigate(`/entity/${id}`); // ÁTÍRANDÓ
     } catch (err) {
       setError(err?.response?.data?.message || 'Módosítási hiba.');

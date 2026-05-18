@@ -151,7 +151,7 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
     if (!window.confirm('Biztosan törlöd?')) return;
     try {
       await entityApi.remove(id);
-      setItems((prev) => prev.filter((item) => Number(item.id) !== Number(id))); // ha nálad string az ID, maradhat String(...) összehasonlítás
+      setItems((prev) => prev.filter((item) => Number(item.id) !== Number(id))); // tartsd egységesen számos típusban az ID-ket
     } catch (err) {
       setError(err?.response?.data?.message || 'Törlési hiba.');
     }
@@ -167,7 +167,7 @@ export function EntityListPage() { // ÁTÍRANDÓ: komponensnév
 
       <div className="row g-3">
         {items.map((item) => (
-          <div className="col-12 col-md-6 col-lg-4" key={item.id}>
+          <div className="col-12 col-md-6 col-lg-4" key={item.id}> {/* backend oldalon legyen minden id egyedi */}
             <div className="card h-100">
               <div className="card-body">
                 <h2 className="h5">{item.name}</h2> {/* ÁTÍRANDÓ: mezőnév */}
@@ -374,8 +374,8 @@ export const initialEntityFormState = {
   year: '',
 };
 
-export const mapFormToPayload = (form, id = 0) => ({
-  id: Number(id) || 0,
+export const mapFormToPayload = (form, id = null) => ({
+  id: id == null || id === '' ? 0 : Number(id),
   name: form.name.trim(), // ÁTÍRANDÓ
   year: Number(form.year), // ÁTÍRANDÓ
 });
